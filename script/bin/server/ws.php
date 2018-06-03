@@ -192,7 +192,10 @@ class Ws {
         foreach($datas as $key => $value) {
             $logs .= $key . ":" . $value . " ";
         }
-
+        if (!is_dir(APP_PATH.'../runtime/log/'.date("Ym")."/".date("d")."_access.log"))
+        {
+            @mkdir(APP_PATH.'../runtime/log/'.date("Ym")."/".date("d")."_access.log", 777);
+        }
         swoole_async_writefile(APP_PATH.'../runtime/log/'.date("Ym")."/".date("d")."_access.log", $logs.PHP_EOL, function($filename){
             // todo
         }, FILE_APPEND);
